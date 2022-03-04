@@ -15,7 +15,7 @@ edad // invocar
 var elementos = ["hello", 1]; // array
 
 var persona =  {
-    nombre: "victor", edad: 30
+    nombre: "victor", edad: 30 // objeto
 }
 
 /////////////////////////////////////////////////////////
@@ -115,14 +115,14 @@ function PoderVotar(edad) {
   }
 }
 
-var resultado = edad === 18 ? "tiene 18" : "no tiene 18"
+var resultado = edad === 18 ? "tiene 18" : "no tiene 18" // condicional de una linea :)
 console.log(resultado);
 
 ///////////////////////////////////////////////////////////////////
 
-var h = Math.round(Math.random() );
+// adicional 
 
-///////////////////////////////////////////////////////
+var h = Math.round(Math.random() *1 ); // numero aleatorio de 0 a 1
 var pregunta = prompt("Ingresa tu opción: ");  // JoptionPanel de jv
 var user = pregunta.toLowerCase(); // minusculas
 ///////////////////////////////////////////////////////////
@@ -130,13 +130,27 @@ var user = pregunta.toLowerCase(); // minusculas
 // switch
 var nombre = "carlos";
 
-switch (key) {
+switch (nombre==="carlos") {
   case (true):
     console.log("hi");
   case (nombre = "carlos"):
     console.log(" "+nombre+" ");
+    break; // rompe la secuencia
   default:
-    console.log("good bye");
+    console.log("good bye"); 
+}
+
+var key = 'a';
+switch (key) {
+  case 'a':
+    console.log("is a");
+    break;
+  case 'b':
+    console.log("is b");
+  case 'c':
+    console.log("is c");
+  default:
+    console.log("is none");
     break;
 }
 ///////////////////////////////////////////////////////////////////
@@ -163,3 +177,66 @@ for (var i of numeros){
  }
 
 //////////////////////////////////////////////////////////
+
+// objetos
+
+var miAuto = {
+  marca: "Toyota",
+  modelo: "Corolla",
+  año: 2020,
+  detalles: function (){
+    console.log("Auto "+this.marca+" "+this.modelo);
+  }
+}
+
+function auto(marca, modelo, anio) {
+  this.marca=marca;
+  this.modelo=modelo;
+  this.anio=anio;
+}
+
+var autoNuevo = new auto("testal","2022txd", "2022");
+/////////////////////////////////////////////////////////////////////
+
+// filtros de objetos
+
+var articulos = [
+  {nombre: "pc", precio: 500},
+  {nombre: "teclado", precio: 900},
+  {nombre: "mouse", precio: 100}
+];
+
+var filtro = articulos.filter(function(a) {
+  return a.precio>=500;
+});
+
+// mapeo de objetos
+
+var mapeado = articulos.map(function(a) {
+  return a.nombre;
+});
+
+// encontrar objeto
+var encontrar = articulos.find(function(a) {
+  return a.nombre === "teclado";
+});
+
+// existencia de objetos
+
+var existeArticulo = articulos.some(function(a) {
+  return a.precio <=100;
+});
+
+// foreach
+
+articulos.forEach(function(a) {
+  console.log(a.nombre);
+})
+
+articulos.push(
+ {nombre: "pantalla", precio: 200},
+ {nombre: "audifonos", precio: 300}
+);
+
+var numeros3 = [1,2,3,4,5];
+numeros3.pop();
