@@ -31,3 +31,11 @@ function  SuperF(){
 var SuperF = function(){
   return a+b;
 }
+//////////////////////////////////////////////////////
+ 
+var nombre2 = "victorM" // scope global
+
+function saludar() {
+  var apellido = "alzate"; // scope local
+  return console.log("hola "+nombre2+ " " +apellido);  
+}
