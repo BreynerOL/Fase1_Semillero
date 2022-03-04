@@ -97,3 +97,69 @@ Boolean(true) // true obviamente
 
 ///////////////////////////////////////////////////////////////////////////////
 
+// condicionales
+var a = 3;
+var b = 2;
+
+if (a > b) {
+  console.log("es mayor")
+}
+/////
+function PoderVotar(edad) {
+  if (edad === 18) {
+    console.log("Puedes votar por primera vez :3")
+  } else if (edad > 18) {
+    console.log("Puedes votar again");
+  } else {
+    console.log("No puedes votar :(");
+  }
+}
+
+var resultado = edad === 18 ? "tiene 18" : "no tiene 18"
+console.log(resultado);
+
+///////////////////////////////////////////////////////////////////
+
+var h = Math.round(Math.random() );
+
+///////////////////////////////////////////////////////
+var pregunta = prompt("Ingresa tu opción: ");  // JoptionPanel de jv
+var user = pregunta.toLowerCase(); // minusculas
+///////////////////////////////////////////////////////////
+
+// switch
+var nombre = "carlos";
+
+switch (key) {
+  case (true):
+    console.log("hi");
+  case (nombre = "carlos"):
+    console.log(" "+nombre+" ");
+  default:
+    console.log("good bye");
+    break;
+}
+///////////////////////////////////////////////////////////////////
+
+// for
+var numeros =[1,2,3,4,5];
+
+for (var i=0; i<numeros.length; i++){
+  console.log(numeros[i]);
+}
+  
+for (var i of numeros){
+  console.log(i);
+}
+
+///////////////////////////////////////////////////////////////
+// while
+
+ var estudiantes = ["juan", "carlos", "victor", "pablo"];
+
+ while (estudiantes.length > 0) {
+   console.log("hey "+estudiantes[0]);
+   estudiantes.shift();
+ }
+
+//////////////////////////////////////////////////////////
