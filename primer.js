@@ -19,5 +19,7 @@ switch(opcion){
     break;
     case 3: console.log("Empate");
     break;
-    default: console.log("Muy pirobo");
+    default: console.log("Algo anda mal");
 }
+//Arreglos son dinamicos
+//push agrega al final, pop quita el elemento, unshift pone el elemento al inicio del arreglo y shift elimina la primera posicion, indexof nos dice en que posicion esta un elemento del arreglo
