@@ -14,5 +14,8 @@
     "trainig"
   ],
   "author": "Victor",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
 }
