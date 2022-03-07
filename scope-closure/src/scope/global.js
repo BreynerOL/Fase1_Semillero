@@ -36,7 +36,7 @@ anotherFutions();
 console.log(globalvar);
 
 const anotherFutions2 = () => {
-  var localvar = globalvar = "hey world";
+  var localvar = globalvar = "hey world"; // duda
 }
 
 anotherFutions2();
