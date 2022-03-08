@@ -8,11 +8,15 @@
     "platzi"
   ],
   "scripts": {
-    "start": "set PORT=4000 && live-server"
+    "start": "parcel index.html ejercicios/index.html ejercicios/**/*.html"
   },
   "devDependencies": {
-    "live-server": "^1.2.1"
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.6.2"
   },
+  "browserslist": [
+    "last 1 chrome version"
+  ],
   "main": "index.js",
   "repository": {
     "type": "git",
