@@ -65,3 +65,28 @@ function fullName(firsName: string, lastName?: string): string{
 const richar = fullName('Rishcar', "cleves");
 
 console.log(richar);
+
+//Interfaces
+interface Rectangulo{
+    ancho: number
+    alto: number
+    color?:Color,
+}
+
+let rect: Rectangulo = {
+    ancho: 4,
+    alto:6,
+    color: Color.Rojo,
+    
+}
+
+function area(r: Rectangulo){
+    return r.alto * r.alto;
+}
+const areaRect = area(rect);
+console.log(areaRect);
+
+rect.toString = function(){
+    return this.color ? `Un rectangulo ${this.color}` : `Un rectangulo`;
+}
+console.log(rect.toString());
