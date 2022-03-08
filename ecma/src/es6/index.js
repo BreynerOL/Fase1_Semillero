@@ -84,3 +84,87 @@ console.log(education);
 console.log(v2);
 // console.log(v3); // tampoco se puede
 
+
+////////////////////////////////////////////////////////////////
+
+let namenombre = "victor"
+let edadage = 21;
+
+personPersona = { // es6
+  namenombre, edadage
+}
+
+console.log(personPersona.namenombre, personPersona.edadage);
+
+var objeto = {
+  marca: "es5",
+  numero: 5
+}
+
+///////////////////////////////////////////////////////////////
+
+const names = [
+  {nombre: "victor", edad: 21},
+  {nombre: "yesica", edad: 27}
+]
+
+let listaDeNombre2 = names.map(i => console.log(i));
+
+let listaDeNombre = names.map(function(item) {
+  console.log(item.nombre);
+})
+
+/////
+
+const arrowFuntions = (parametro1, parametro2) => {
+  console.log("logica de la funcion");
+}
+
+const arrowFuntions2 = onlyparametro => {
+  onlyparametro = "se puede escribir asi una funcion cuando tiene un solo parametro";
+  console.log(onlyparametro);
+}
+
+const arrowFuntions3 = numeros => console.log(numeros**2 );  // duda
+
+arrowFuntions();
+arrowFuntions2("hi");
+arrowFuntions3(2);
+
+/////////////////////////////////////////////
+
+
+class persona {
+  nombre;
+  edad;
+  pais;
+  TPiel = true;
+
+  constructor(nombre = "name", edad = 0, pais = "Sin pais"){
+    this.nombre=nombre;
+    this.edad=edad;
+    this.pais=pais;
+  }
+
+  mostrarEdad(){
+    return console.log(this.edad);
+  }
+
+  tienePiel(){
+    return console.log(this.TPiel);
+  }
+
+  MostrarPais(){
+    return console.log(this.pais); 
+  }
+}
+
+const persona1 = new persona("victor", 21);
+
+persona1.tienePiel();
+persona1.mostrarEdad();
+persona1.MostrarPais();
+
+////////////////////////////////////////////////////////////////
+
+
