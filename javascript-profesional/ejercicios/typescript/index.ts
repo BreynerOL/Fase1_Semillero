@@ -90,3 +90,40 @@ rect.toString = function(){
     return this.color ? `Un rectangulo ${this.color}` : `Un rectangulo`;
 }
 console.log(rect.toString());
+
+/*Patrones de diseño
+Patrones de diseño
+ 
+➡️Creacionales
+Proveen diferentes mecanismos para crear objetos.
+
+Abstract Factory
+Builder
+Factory Method
+Prototype
+Singleton
+ 
+➡️Estructurales
+Describen formas de componer objetos para formar nuevas estructuras flexibles y eficientes.
+Adapter
+Bridge
+Composite
+Decorator
+Facade
+Flyweight
+Proxy
+ 
+➡️Comportamiento
+Gestionan algoritmos y responsabilidades entre objetos.
+Chain of Responsibility
+Command
+Interpreter
+Iterator
+Mediator
+Memento
+Observer
+State
+Strategy
+Template Method
+Visitor
+*/
