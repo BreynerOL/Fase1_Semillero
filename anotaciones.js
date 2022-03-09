@@ -43,7 +43,7 @@ function saludar() {
 ////////////////////////////////////////
 
 var a = "50";
-var b = Number(a);
+var b = Number(a); // tranforma un caracter a numero
 var c = a * 2;
 
 console.log(typeof a)
@@ -115,7 +115,9 @@ function PoderVotar(edad) {
   }
 }
 
-var resultado = edad === 18 ? "tiene 18" : "no tiene 18" // condicional de una linea :)
+edadMX = 21;
+
+var resultado = edadMX === 18 ? "tiene 18" : "no tiene 18" // condicional de una linea :)
 console.log(resultado);
 
 ///////////////////////////////////////////////////////////////////

@@ -343,10 +343,11 @@ try {
 
 //-------------fromEntries----------------------/
 // arrayX to object
-let entries = [["name", "oscar"], ["age", 32]];
-console.log(Object.fromEntries(entries))
+let entriesM = [["name", "Lol"], ["age", 20]]; // convierte los arrays en objetos
+console.log(Object.fromEntries(entriesM))
 
 //-------------symbol object--------------------/
 let mySymbol = 'My Symbol';
 let symbol = Symbol(mySymbol);
-console.log(symbol.description);```
+console.log(symbol.description);
+console.log(symbol);
