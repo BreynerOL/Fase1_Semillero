@@ -174,10 +174,15 @@ function* generadorDehola() {
   if (true) {
     yield "mundo";
   }
+  if (true) {
+    yield "all"
+  }
 };
 
 const generador = generadorDehola();
 console.log(generador.next().value); 
+console.log(generador.next().value);
+console.log(generador.next().value);
 console.log(generador.next().value);
 
 //////////////////////////////////////////////////////////
