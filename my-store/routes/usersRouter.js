@@ -1,26 +1,74 @@
 const express = require('express');
+const UserService = require('./../services/userService')
+const validatorHandler = require('./../middlewares/validatorHandler');
+const { updateUserSchema, createUserSchema, getUserSchema } = require('./../schemas/userSchema')
 
 
 const router = express.Router();
+const service = new UserService();
 
-router.get('/', (req, res) =>{
-  const { limit, offset } = req.query;
-  if(limit && offset){
-    res.json({
-      limit,
-      offset
-    });
-  }else {
-    res.send('No hay parametros');
-  }
-})
+router.get('/', async (req, res, next) =>{
+  try{
+  const users = await service.find();
+  res.json(users);
+}catch(err){
+  next(err);
+}
+}
+);
 
-router.get('/:id', (req, res) => {
+router.get('/:id',
+ validatorHandler(getUserSchema, 'params'),
+async (req, res, next) => {
+  try{
   const { id } = req.params;
-  res.json({
-    id,
-    name:'Juan'
-  })
-})
+  const category = await service.findOne(id);
+      res.json(category);
+    } catch (error) {
+      next(error);
+    }
+}
+);
+
+router.post('/',
+  validatorHandler(createUserSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const newCategory = await service.create(body);
+      res.status(201).json(newCategory);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.patch('/:id',
+  validatorHandler(getUserSchema, 'params'),
+  validatorHandler(updateUserSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const category = await service.update(id, body);
+      res.json(category);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.delete('/:id',
+  validatorHandler(getUserSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      await service.delete(id);
+      res.status(201).json({id});
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = router;
