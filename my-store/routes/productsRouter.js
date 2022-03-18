@@ -5,16 +5,22 @@ const {
   createProductSchema,
   updateProductSchema,
   getProductSchema,
+  queryProductSchema,
 } = require('./../schemas/productSchema');
 
 const router = express.Router();
 const service = new ProductServices();
 
 //Logica de negocio
-router.get('/', async (req, res) => {
-  const products = await service.find();
+router.get('/', validatorHandler(queryProductSchema, 'query'), async (req, res, next) => {
+  try{
+    const products = await service.find(req.query);
   res.json(products);
-});
+}catch (err) {
+  next(err);
+}
+}
+);
 
 router.get('/filter', (req, res) => {
   res.send('Yo soy un filter');
