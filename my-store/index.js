@@ -21,16 +21,18 @@ const options = {
   }
 }
 app.use(cors(options));
-const ip =  '192.168.1.85'
+
+require('./utils/auth');
+const ip =  '192.168.1.85';
 //Damos la ruta
 app.get('/', (req, res) => {
   res.send('Hola mi server en express');
-})
+});
 
 
 app.get('/nueva-ruta',checkApiKey, (req, res) => {
   res.send('Hola soy una nueva ruta');
-})
+});
 
 routerApi(app);
 
