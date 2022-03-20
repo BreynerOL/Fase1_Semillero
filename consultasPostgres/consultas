@@ -1,0 +1,39 @@
+/*Saber que pasajeros han hecho al menos 1 viaje*/
+SELECT * FROM pasajero
+JOIn viaje ON (viaje.id_pasajero = pasajero.id);
+/*Saber que pasajeros no han hecho ningun viaje*/
+SELECT * FROM pasajero
+LEFT JOIn viaje ON (viaje.id_pasajero = pasajero.id)
+where viaje.id is NULL
+;
+/*Saber que nombres empiezan por O sin inportar mayusculas o no*/
+Select nombre
+	from public.pasajero
+	where nombre ILIKE 'o%';
+
+/*Comparar entre 2 parametros el nulo y retornar el que no lo sea*/
+SELECT id, COALESCE(nombre, 'no aplica') FROM
+	PUBLIC.pasajero where id=1
+	
+/*Comparar entre 2 parametros si son iguales y retornar null si es asi*/
+SELECT NULLIF(0,0);
+/*Retorna el mayor de un array*/
+SELECT GREATEST (0,1,2,3,4,5,6,7)
+/*Retorna el menor de un array*/
+SELECT LEAST (0,1,2,3,4,5,6,7)
+
+/*Bloques anonimos*/
+
+SELECT id, nombre, direccion_residencia, fecha_nacimiento,
+CASE 
+WHEN fecha_nacimiento> '2025-01-01' THEN
+'Niño'
+ELSE
+'Mayor'
+END
+	FROM public.pasajero
+	
+	/*Vista volatil toca que crearla para poder llamarla*/
+	SELECT * FROM rango_view;
+	/* ahora si una lista materializada*/
+	SELECT * FROM viaje Where inicio > '22:00:00';
