@@ -8,8 +8,6 @@ import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { DatabaseModule } from './database/database.module';
 
-
-
 import { environments } from './enviroments';
 import config from './config';
 
@@ -20,9 +18,9 @@ import config from './config';
       load: [config],
       isGlobal: true,
       validationSchema: Joi.object({
-      API_KEY: Joi.number().required(),
-      DATABASE_NAME: Joi.string().required(),
-      DATABASE_PORT: Joi.number().required(),
+        API_KEY: Joi.number().required(),
+        DATABASE_NAME: Joi.string().required(),
+        DATABASE_PORT: Joi.number().required(),
       }),
     }),
     HttpModule,
