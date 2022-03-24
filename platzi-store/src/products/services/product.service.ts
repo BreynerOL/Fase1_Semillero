@@ -1,62 +1,104 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, Between, FindConditions } from 'typeorm';
 
 import { Product } from './../entities/product.entity';
-import { CreateProductDto, UpdateProductDto } from './../dtos/products.dtos';
+import { Category } from './../entities/category.entity';
+import { Brand } from './../entities/brand.entity';
+import { BrandsService } from './brands.service';
+import {
+  CreateProductDto,
+  UpdateProductDto,
+  FilterProductDto,
+} from './../dtos/products.dtos';
 @Injectable()
 export class ProductService {
-  private counterId = 1;
-  private products: Product[] = [
-    {
-      id: 1,
-      name: 'Product 1',
-      description: 'Product description',
-      price: 122,
-      image: '',
-      stock: 12,
-    },
-  ];
+  constructor(
+    @InjectRepository(Product) private productRepo: Repository<Product>,
+    @InjectRepository(Brand) private brandRepo: Repository<Brand>,
+    @InjectRepository(Category) private categoryRepo: Repository<Category>,
+  ) {}
 
-  findAll() {
-    return this.products;
+  findAll(params?: FilterProductDto) {
+    if (params) {
+      const where: FindConditions<Product> = {};
+      const { limit, offset } = params;
+      const { maxPrice, minPrice } = params;
+      console.log(minPrice, maxPrice);
+      if (minPrice && maxPrice) {
+        where.price = Between(minPrice, maxPrice);
+      }
+      return this.productRepo.find({
+        relations: ['brand'],
+        where,
+        take: limit,
+        skip: offset,
+      });
+    }
+    return this.productRepo.find({
+      relations: ['brand'],
+    });
   }
 
-  findOne(id: number) {
-    const product = this.products.find((item) => item.id === id);
+  async findOne(id: number) {
+    const product = await this.productRepo.findOne(id, {
+      relations: ['brand', 'categories'],
+    });
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
     return product;
   }
 
-  create(payload: CreateProductDto) {
-    this.counterId = this.counterId + 1;
-    const newProduct = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.products.push(newProduct);
-    return newProduct;
+  async create(data: CreateProductDto) {
+    const newProduct = this.productRepo.create(data);
+    if (data.brandId) {
+      const brand = await this.brandRepo.findOne(data.brandId);
+      newProduct.brand = brand;
+    }
+    if (data.categoriesId) {
+      const categories = await this.categoryRepo.findByIds(data.categoriesId);
+      newProduct.categories = categories;
+    }
+    return this.productRepo.save(newProduct);
   }
 
-  update(id: number, payload: UpdateProductDto) {
-    const product = this.findOne(id);
-    if (product) {
-      const index = this.products.findIndex((item) => item.id === id);
-      this.products[index] = {
-        ...product,
-        ...payload,
-      };
-      return this.products[index];
+  async update(id: number, changes: UpdateProductDto) {
+    const product = await this.productRepo.findOne(id);
+    if (changes.brandId) {
+      const brand = await this.brandRepo.findOne(changes.brandId);
+      product.brand = brand;
     }
-    return null;
+    if (changes.categoriesId) {
+      const categories = await this.categoryRepo.findByIds(
+        changes.categoriesId,
+      );
+      product.categories = categories;
+    }
+    this.productRepo.merge(product, changes);
+    return this.productRepo.save(product);
+  }
+
+  async removecategoryByProduct(productId: number, categoryId: number) {
+    const product = await this.productRepo.findOne(productId, {
+      relations: ['categories'],
+    });
+    product.categories = product.categories.filter(
+      (item) => item.id !== categoryId,
+    );
+    return this.productRepo.save(product);
+  }
+
+  async addCategoryToProduct(productId: number, categoryId: number) {
+    const product = await this.productRepo.findOne(productId, {
+      relations: ['categories'],
+    });
+    const category = await this.categoryRepo.findOne(categoryId);
+    product.categories.push(category);
+    return this.productRepo.save(product);
   }
 
   remove(id: number) {
-    const index = this.products.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`Product #${id} not found`);
-    }
-    this.products.splice(index, 1);
-    return true;
+    return this.productRepo.delete(id);
   }
 }
