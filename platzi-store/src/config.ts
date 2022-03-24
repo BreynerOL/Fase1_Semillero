@@ -14,5 +14,6 @@ export default registerAs('config', () => {
       host: process.env.POSTGRES_HOST,
     },
     apiKey: process.env.API_KEY,
+    jwtScret: process.env.JWT_SECRET,
   };
 });

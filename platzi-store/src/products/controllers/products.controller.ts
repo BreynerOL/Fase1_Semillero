@@ -10,6 +10,7 @@ import {
   HttpStatus,
   HttpCode,
   Res,
+  UseGuards
   //ParseIntPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -24,11 +25,19 @@ import {
 } from './../dtos/products.dtos';
 
 import { ProductService } from './../services/product.service';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { Public } from '../../auth/decorators/public.decorator';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private productService: ProductService) {}
+  //El guardian me exige la estrategia, en este caso el token
+  //Se utiliza el public para que no la exija, esto viene implementadp
+  //desde la clase jwt-auth-guards
+
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List of products' })
   getProducts(@Query() params: FilterProductDto) {
@@ -39,7 +48,7 @@ export class ProductsController {
   getProductFilter() {
     return 'Yo soy un filter';
   }
-
+  @Public()
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
   getOne(@Param('productId', ParseIntPipe) productId: number) {
