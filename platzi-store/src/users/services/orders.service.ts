@@ -48,4 +48,12 @@ export class OrdersService {
   remove(id: number) {
     return this.orderRepo.delete(id);
   }
+
+  ordersByCustomer(customerId: number) {
+    return this.orderRepo.find({
+      where: {
+        customer: customerId,
+      },
+    });
+  }
 }
