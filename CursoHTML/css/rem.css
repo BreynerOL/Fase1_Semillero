@@ -1,0 +1,15 @@
+/* Rem siempre tiene preferencia al estilo que tenga root osea html, es mas recomendado que em */
+/* Esto nos ayuda a tener claro cuanto es un rem, con lo del html 1 rem seria equivalente a 10 pixeles */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+p{
+    font-size: 3rem;
+}
