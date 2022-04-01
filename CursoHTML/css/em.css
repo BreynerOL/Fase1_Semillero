@@ -1,8 +1,0 @@
-/* El em funciona tomando el tamño de fuente que tenga el padre directo que seria el html y por defecto este es 16 entonces seria 16 * lo que ponemos en em*/
-.text-container {
-    font-size:1.5em;
-}
-
-.text-container div{
-    font-size:1.5em;
-}
