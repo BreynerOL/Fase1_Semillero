@@ -7,20 +7,28 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
+        publicPath: '/'
     },
     mode: 'development',
     resolve: {
-        extensions: ['.js', '.jsx'],
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                }
-            },
+		extensions: ['.js', '.jsx'],
+		alias: {
+			'@components': path.resolve(__dirname, 'src/components/'),
+			'@containers': path.resolve(__dirname, 'src/containers/'),
+			'@styles': path.resolve(__dirname, 'src/styles/'),
+			'@icons': path.resolve(__dirname, 'src/assets/icons/'),
+			'@logos': path.resolve(__dirname, 'src/assets/logos/'),
+		}
+	},
+	module: {
+		rules: [
+			{
+				test: /\.(js|jsx)$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader'
+				}
+			},
             {
                 test: /\.html$/,
                 use: [
@@ -30,12 +38,27 @@ module.exports = {
                 ]
             },
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.(css|scss)$/i,
                 use: [
                     "style-loader",
                     "css-loader",
                     "sass-loader",
                 ],
+            },
+            {
+                test: /\.(png|jp(e*)g|svg|gif)$/,
+                      use: [
+                         {
+                        loader: 'file-loader',
+                           options: {
+                                 name: 'images/[hash]-[name].[ext]',
+                               },
+                         },
+                         ],
+            },
+            {
+                test: /\.(png|jpg|svg|gif)$/,
+                type: 'asset'
             }
         ]
     },
@@ -49,10 +72,6 @@ module.exports = {
         }),
     ],
     devServer: {
-        static: {
-          directory: path.join(__dirname, 'public'),
-          },
-        compress: true,
-        port: 3005,
+        historyApiFallback: true,
       }
 }
