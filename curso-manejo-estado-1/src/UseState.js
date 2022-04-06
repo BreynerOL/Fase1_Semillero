@@ -9,7 +9,48 @@ function UseState({ name }) {
         deleted: false,
         confirmed: false,
     })
-    
+    const onConfirm = () => {
+        setState({
+            ...state,
+            error:false,
+            loading: false,
+            confirmed: true,
+        });
+    }
+    const onError = () => {
+        setState({
+            ...state,
+            error: true,
+            loading: false,
+        });
+    }
+    const onWrite =(event) => {
+        setState({
+            ...state,
+            value: event,
+        }); ;
+    }
+    const onCheck =() => {
+        setState({
+            ...state,
+            loading: true,
+        });
+    }
+    const onDelete =() => {
+        setState({
+            ...state,
+            deleted: true,
+            value: '',
+        })
+    }
+    const onReset = () => {
+        setState({
+            ...state,
+            confirmed: false,
+            deleted: false,
+            value: '',
+        })
+    }
     React.useEffect(() => {
         console.log("Empezando el efecto");
         if(!!state.loading) {
@@ -17,18 +58,9 @@ function UseState({ name }) {
                 console.log("Haciendo la validacion");
                 
                 if(state.value === SECURITY_CODE){
-                    setState({
-                        ...state,
-                        error:false,
-                        loading: false,
-                        confirmed: true,
-                    });
+                    onConfirm();
                 }else{
-                    setState({
-                        ...state,
-                        error: true,
-                        loading: false,
-                    });
+                    onError();
                 }
 
                 console.log("terminando la validacion");
@@ -56,18 +88,12 @@ function UseState({ name }) {
                 placeholder="Codigo de seguridad"
                 value={state.value}
                 onChange={(event) => {
-                    setState({
-                        ...state,
-                        value: event.target.value,
-                    }); ;
+                    onWrite(event.target.value);
                 }}
                 />
                 <button
                 onClick={() => {
-                    setState({
-                        ...state,
-                        loading: true,
-                    });
+                    onCheck();
                 }}
                 >Comprobar</button>
             </div>
@@ -78,22 +104,14 @@ function UseState({ name }) {
                 <p>Pedimos confirmacion. ¿Tas segurx?</p>
                 <button
                     onClick={() => {
-                        setState({
-                            ...state,
-                            deleted: true,
-                            value: '',
-                        })
+                        onDelete();
                     }}
                 >
                     Sí, eliminar
                 </button>
                 <button
                 onClick={() => {
-                    setState({
-                        ...state,
-                        confirmed: false,
-                        value: '',
-                    })
+                    onReset();
                 }}
                 >Nop, me arrepenti
                 </button>
@@ -106,12 +124,7 @@ function UseState({ name }) {
 
                 <button
                 onClick={() => {
-                    setState({
-                        ...state,
-                        confirmed: false,
-                        deleted: false,
-                        value: false,
-                    })
+                    onReset();
                 }}
                 >
                     Resetear, volver atrás
